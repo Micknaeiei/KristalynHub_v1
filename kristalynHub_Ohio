@@ -81,26 +81,6 @@ end)
 	end    
 })
 
-
-Tab:AddSlider({
-	Name = "Walkspeed",
-	Min = 20,
-	Max = 200,
-	Default = 20,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "speed",
-    Flag = "Slider1",
-	Callback = function(Value)
-		getgenv().WalkSpeedValue = (Value); --set your desired walkspeed here
-local Player = game:service'Players'.LocalPlayer;
-Player.Character.Humanoid:GetPropertyChangedSignal'WalkSpeed':Connect(function()
-Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
-end)
-Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
-	end    
-})
-
 local Tab = Window:MakeTab({
 	Name = "Teleport",
 	Icon = "rbxassetid://4483345998",
