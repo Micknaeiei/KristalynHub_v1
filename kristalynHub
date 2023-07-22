@@ -1,0 +1,302 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "KristalynHub", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+local Tab = Window:MakeTab({
+	Name = "Main",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Tab:AddButton({
+	Name = "ChatSpy",
+	Callback = function()
+        local Players, SGui = game:GetService("Players"), game:GetService("StarterGui");
+        local Client, NColor3, UD, UD2 = Players.LocalPlayer, Color3.new, UDim.new, UDim2.new
+        
+        local function ChatSpy()
+           local ChatSpyFrame = Client.PlayerGui.Chat.Frame
+           ChatSpyFrame.ChatChannelParentFrame.Visible = true
+           ChatSpyFrame.ChatBarParentFrame.Position = ChatSpyFrame.ChatChannelParentFrame.Position + UD2(UD(), ChatSpyFrame.ChatChannelParentFrame.Size.Y)
+        end -- brings back chat for games that remove it
+        ChatSpy()
+        
+        getgenv().ShowHiddenMsg = function(T, C)
+           SGui:SetCore("ChatMakeSystemMessage", {
+               Text = T;
+               Color = C;
+           })
+        end
+        getgenv().Spy = function(Target)
+           Target.Chatted:Connect(function(Msg)
+               if string.find(Msg, "/e ") or string.find(Msg, "/w ") or string.find(Msg, "/whisper ") then
+                   ShowHiddenMsg("{SPY}: ".."["..tostring(Target).."]: "..Msg, NColor3(255,255,255)) -- https://www.rapidtables.com/web/color/RGB_Color.html if you want to change the color of the hidden msg's
+               end
+           end)
+        end
+        
+        local GP = Players:GetPlayers()
+        for i = 1, #GP do
+           local Plr = GP[i]
+           if tostring(Plr) then
+               Spy(Plr)
+           end
+        end
+        Players.PlayerAdded:Connect(function(P)
+           if tostring(P) then
+               Spy(P)
+           end
+        end)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "noclip",
+	Callback = function(Value)
+		local CharParts = {}
+_G.NoClip = true
+game:GetService("RunService").Stepped:connect(function()
+    if _G.NoClip then
+        for i = 1, #CharParts do
+            CharParts[i].CanCollide = false
+        end
+    end
+end)
+
+function SetupCharCollide(Char)
+    CharParts = {}
+    Char:WaitForChild("Head")
+    for i, v in pairs(Char:GetChildren()) do
+        if v:IsA("BasePart") then
+            table.insert(CharParts, v)
+        end
+    end
+end
+
+if game.Players.LocalPlayer.Character then
+    SetupCharCollide(game.Players.LocalPlayer.Character)
+end
+game.Players.LocalPlayer.CharacterAdded:connect(function(Ch)
+    SetupCharCollide(Ch)
+end)
+	end    
+})
+
+
+Tab:AddSlider({
+	Name = "Walkspeed",
+	Min = 0,
+	Max = 200,
+	Default = 16,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "speed",
+    Flag = "Slider1",
+	Callback = function(Value)
+		getgenv().WalkSpeedValue = (Value); --set your desired walkspeed here
+local Player = game:service'Players'.LocalPlayer;
+Player.Character.Humanoid:GetPropertyChangedSignal'WalkSpeed':Connect(function()
+Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
+end)
+Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
+	end    
+})
+
+local Tab = Window:MakeTab({
+	Name = "Teleport",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+	Name = "Robberies"
+})
+
+Tab:AddButton({
+	Name = "Bank",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(1084.33521, 8.16782761, -390.47818, -0.999963939, 1.38136436e-09, 0.00849212892, 1.41357859e-09, 1, 3.78742104e-09, -0.00849212892, 3.79928888e-09, -0.999963939)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "InsideBank",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(1060.89734, 8.5925312, -344.866547, -0.000486814417, -5.39320659e-08, 0.999999881, -4.86028711e-08, 1, 5.3908412e-08, -0.999999881, -4.85766236e-08, -0.000486814417)game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(1060.89734, 8.5925312, -344.866547, -0.000486814417, -5.39320659e-08, 0.999999881, -4.86028711e-08, 1, 5.3908412e-08, -0.999999881, -4.85766236e-08, -0.000486814417)game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(1060.89734, 8.5925312, -344.866547, -0.000486814417, -5.39320659e-08, 0.999999881, -4.86028711e-08, 1, 5.3908412e-08, -0.999999881, -4.85766236e-08, -0.000486814417)
+  	end    
+})
+
+local Section = Tab:AddSection({
+	Name = "WeaponShop"
+})
+
+Tab:AddButton({
+	Name = "Armory1",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(674.752991, 6.24341631, -686.64563, 0.999845445, -6.59086297e-08, -0.0175799876, 6.60891786e-08, 1, 9.68921032e-09, 0.0175799876, -1.08495595e-08, 0.999845445)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Armory2",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(1590.42261, 6.24341869, -618.423279, 0.0521202646, 4.81854734e-08, -0.998640835, -2.50982453e-08, 1, 4.69411461e-08, 0.998640835, 2.26175469e-08, 0.0521202646)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Armory3",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(1126.3584, 25.3419132, -1338.79602, 0.986291826, 1.66489702e-08, -0.165010303, -1.32491449e-08, 1, 2.17043805e-08, 0.165010303, -1.92206091e-08, 0.986291826)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Basement",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(648.023743, -16.4511662, -81.9883728, -0.764079511, -8.28379427e-08, -0.645122111, -9.75658523e-08, 1, -1.28500917e-08, 0.645122111, 5.31233937e-08, -0.764079511)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "MilitaryBase",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(840.35437, 24.7926273, -1441.66272, 0.997814238, 1.5596916e-09, 0.0660816208, -7.11285697e-10, 1, -1.28622846e-08, -0.0660816208, 1.27871678e-08, 0.997814238)
+  	end    
+})
+
+local Section = Tab:AddSection({
+	Name = "OtherPlaces"
+})
+
+Tab:AddButton({
+	Name = "Jewerly",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(1568.20691, 8.34332657, -686.182129, 0.198748663, -2.62297348e-08, -0.980050504, -9.93521088e-09, 1, -2.87784605e-08, 0.980050504, 1.54566884e-08, 0.198748663)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Casino",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(1559.13147, 9.44468021, -790.541504, 0.10444098, -2.66148383e-08, -0.994531095, 3.44959759e-08, 1, -2.31385879e-08, 0.994531095, -3.18907034e-08, 0.10444098)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Hospital",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(1149.3031, 6.2747879, -974.694031, -7.26431608e-08, -8.18270394e-08, -1, -5.7607048e-09, 1, -8.18270394e-08, 1, 5.76069903e-09, -7.26431608e-08)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "BurgerPlace",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(1336.23193, 6.30869865, -701.576111, 0.999963939, 7.46602353e-08, -0.00848985929, -7.48425464e-08, 1, -2.11561542e-08, 0.00848985929, 2.17907949e-08, 0.999963939)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "FireStation",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(1642.48169, 8.06185722, -517.24884, -0.319154233, -1.22442279e-08, 0.947702765, -5.84859166e-08, 1, -6.77617562e-09, -0.947702765, -5.75899115e-08, -0.319154233)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Gym",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(1590.22632, 6.2939229, -318.487244, -0.0255332068, 9.49674739e-09, -0.999673963, -8.62075282e-08, 1, 1.17017169e-08, 0.999673963, 8.64782024e-08, -0.0255332068)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Cafe",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(1326.90137, 8.19805241, -328.760315, 0.000588853785, 1.00279294e-07, -0.999999821, -1.1840616e-10, 1, 1.00279244e-07, 0.999999821, 5.93563323e-11, 0.000588853785)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Church",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(1495.32629, 1.9058069, 31.4711342, -0.945130229, 4.56747458e-08, -0.326693833, 7.03434955e-09, 1, 1.19458534e-07, 0.326693833, 1.10605797e-07, -0.945130229)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Canival",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(1184.11426, 13.8474092, -35.9942741, -0.761015475, 1.24326398e-08, 0.648733735, -1.78459345e-08, 1, -4.00991489e-08, -0.648733735, -4.20933333e-08, -0.761015475)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "GasStation1",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(1080.39502, 6.04341793, -583.681702, 0.999972403, 2.23894094e-08, -0.00743177859, -2.20806928e-08, 1, 4.16220942e-08, 0.00743177859, -4.14568468e-08, 0.999972403)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "GasStation2",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(475.859863, -6.31082153, -275.157104, -0.125299856, -7.77629054e-08, -0.992118895, 2.53659618e-08, 1, -8.15842327e-08, 0.992118895, -3.53885454e-08, -0.125299856)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "FurnitrueStore1",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(936.169922, 6.24514914, -785.777954, 0.0175681561, -4.46200517e-08, 0.999845684, -1.66792553e-08, 1, 4.49200073e-08, -0.999845684, -1.74658421e-08, 0.0175681561)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "FurnitureStore2",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(374.722748, -6.02354622, -404.345245, 0.780372143, -6.87373003e-08, 0.625315368, 2.55242849e-08, 1, 7.80707765e-08, -0.625315368, -4.49635316e-08, 0.780372143)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "PizzaPlace",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(442.781647, 8.24802876, -895.303162, -0.0594560206, 1.00056035e-07, -0.998230934, 7.23444415e-09, 1, 9.98024632e-08, 0.998230934, -1.28778876e-09, -0.0594560206)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "PoliceStation",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(620.262451, 7.2859292, -852.15332, -0.22820957, -2.66248197e-08, -0.97361201, -7.19329796e-09, 1, -2.56603663e-08, 0.97361201, 1.14754029e-09, -0.22820957)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Theater",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(528.127502, 6.24487162, -1030.12573, 0.999997675, 2.17549001e-08, 0.00214960822, -2.1872264e-08, 1, 5.45746595e-08, -0.00214960822, -5.46215517e-08, 0.999997675)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Arcade",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(835.317749, 6.24487495, -913.228333, -0.999961972, 1.40922616e-08, 0.00871829316, 1.42128362e-08, 1, 1.37681919e-08, -0.00871829316, 1.38915803e-08, -0.999961972)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "Grocery",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(930.896057, 6.24346304, -908.037292, -0.688478589, 4.10140402e-08, 0.725256622, -7.70908137e-09, 1, -6.38692228e-08, -0.725256622, -4.95636563e-08, -0.688478589)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "PhoneStore",
+	Callback = function()
+      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(853.898743, 6.24487352, -1043.61365, 0.657622278, 1.52936277e-08, 0.753347814, 2.86244539e-08, 1, -4.52881181e-08, -0.753347814, 5.1346646e-08, 0.657622278)
+  	end    
+})
