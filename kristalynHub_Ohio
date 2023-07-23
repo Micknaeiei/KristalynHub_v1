@@ -280,3 +280,61 @@ Tab:AddButton({
       		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame  = CFrame.new(853.898743, 6.24487352, -1043.61365, 0.657622278, 1.52936277e-08, 0.753347814, 2.86244539e-08, 1, -4.52881181e-08, -0.753347814, 5.1346646e-08, 0.657622278)
   	end    
 })
+
+local Tab = Window:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+	Name = "Fps"
+})
+
+Tab:AddTextbox({
+	Name = "Fpscap",
+	Default = "60",
+	TextDisappear = true,
+	Callback = function(Value)
+		setfpscap(Value)
+	end	  
+})
+
+local Section = Tab:AddSection({
+	Name = "Server"
+})
+
+Tab:AddButton({
+	Name = "Rejoin",
+	Callback = function()
+		local tpservice= game:GetService("TeleportService")
+		local plr = game.Players.LocalPlayer
+		
+		tpservice:Teleport(game.PlaceId, plr)
+  	end    
+})
+
+Tab:AddButton({
+	Name = "LowServerHop",
+	Callback = function()
+		local Http = game:GetService("HttpService")
+local TPS = game:GetService("TeleportService")
+local Api = "https://games.roblox.com/v1/games/"
+
+local _place = game.PlaceId
+local _servers = Api.._place.."/servers/Public?sortOrder=Asc&limit=100"
+function ListServers(cursor)
+   local Raw = game:HttpGet(_servers .. ((cursor and "&cursor="..cursor) or ""))
+   return Http:JSONDecode(Raw)
+end
+
+local Server, Next; repeat
+   local Servers = ListServers(Next)
+   Server = Servers.data[1]
+   Next = Servers.nextPageCursor
+until Server
+
+TPS:TeleportToPlaceInstance(_place,Server.id,game.Players.LocalPlayer)
+  	end    
+})
+
