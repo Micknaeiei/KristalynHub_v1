@@ -291,13 +291,17 @@ local Section = Tab:AddSection({
 	Name = "Fps"
 })
 
-Tab:AddTextbox({
+Tab:AddSlider({
 	Name = "Fpscap",
-	Default = "60",
-	TextDisappear = true,
+	Min = 10,
+	Max = 1000,
+	Default = 60,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "fps",
 	Callback = function(Value)
 		setfpscap(Value)
-	end	  
+	end    
 })
 
 local Section = Tab:AddSection({
